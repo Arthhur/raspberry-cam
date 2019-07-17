@@ -1,3 +1,24 @@
 .fa-user-active {
-    color : green ;
+    color : #00f400 ;
+}
+
+.fa-user-o {
+    margin-right : 0.5vw ;
+}
+
+.requestResult {
+	white-space: pre;
+}
+
+.panel-heading {
+    font-weight : bold ;
+    font-size : 1.5vw ;
+} 
+
+.btn-danger {
+    margin-top : 1% ;
+}
+
+p {
+    text-align : center ;
 }
