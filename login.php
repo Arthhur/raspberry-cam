@@ -7,15 +7,13 @@
       <title>Camera Raspberry</title>
       <meta charset="UTF-8"/>
 
-      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
       <link rel="stylesheet" href="font-awesome-4.7.0/css/font-awesome.min.css">
-      <link rel="stylesheet" href="login.css">
+      <link rel="stylesheet" href="css/bootstrap4.css">
+      <link rel="stylesheet" href="css/bootstrap3.4.css">
+      <link rel="stylesheet" href="camera.css?<?php echo $t ?>">
 
-
-      <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+      <script src="js/jquery-3.4.1.js"></script>
+      <script src="js/bootstrap.min.js"></script>
 
     </head>
     <body>
@@ -25,7 +23,7 @@
                     <h2 class="text-center title">Bienvenue sur Raspberry cam</h2>
                 </div>
                 <div class="col col-sm-12 col-md-6 col-lg-4">        
-                    <form id="formLogin" class="bg-light">
+                    <form id="formLogin" method="post" action="/indexcamera.php" class="bg-light">
                         <h4 class="text-center"> Connexion </h4>
                         <div class="form-group">
                         <label for="username">Username</label>

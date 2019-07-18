@@ -7,17 +7,15 @@
       <title>Camera Raspberry</title>
       <meta charset="UTF-8"/>
 
-      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
       <link rel="stylesheet" href="font-awesome-4.7.0/css/font-awesome.min.css">
-      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+      <link rel="stylesheet" href="css/bootstrap4.css">
+      <link rel="stylesheet" href="css/bootstrap3.4.css">
       <link rel="stylesheet" href="camera.css?<?php echo $t ?>">
 
+      <script src="js/jquery-3.4.1.js"></script>
+      <script src="js/bootstrap.min.js"></script>
 
-      <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+
 
     </head>
     <body>
@@ -72,6 +70,32 @@
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Record Modal -->
+        <div class="modal fade" id="recordModal" tabindex="-1" role="dialog" aria-labelledby="recordModal" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Démarrer l'enregistrement</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <form>
+                  <div class="form-group">
+                      <label for="time">Temps (en secondes)</label>
+                      <input type="number" class="form-control" id="time" min="5" max="300" value="5">
+                  </div>
+                </form>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                <button id="recordBtn" type="button" class="btn btn-primary" data-dismiss="modal">Démarrer l'enregistrement</button>
               </div>
             </div>
           </div>
@@ -146,7 +170,7 @@
           <div class="row">
             <div class="col-lg-6">
               <div class="panel panel-default">
-                <div class="panel-heading">Vidéo live</div>
+                <div class="panel-heading">Vidéo live <button id="record" class="btn btn-warning" value="record" data-toggle="modal" data-target="#recordModal">Démarrer l'enregistrement</button></div>
                 <div class="panel-body">
                   <div class="embed-responsive embed-responsive-16by9">
                     <iframe class="embed-responsive-item" src="http://192.168.0.20:80/video/mjpg.cgi"></iframe>
@@ -194,12 +218,13 @@
 
                   <label for="luminosite">Luminosité</label>
                   <div class="d-flex justify-content-center my-4">
-                    <span class="font-weight-bold purple-text mr-2 mt-1">1</span>
+                    <span class="font-weight-bold purple-text mr-2 mt-1"><br>1</span>
                     <form class="range-field w-100">
                       <input class="border-0" type="range" min="1" max="128" id="luminosite" name="luminosite" />
-                      <p id="valLuminosite"></p>
+                      
                     </form>
                     <span class="font-weight-bold purple-text ml-2 mt-1">128</span>
+                    <p id="valLuminosite"></p>
                   </div>
 
                   <label for="saturation">Saturation</label>
@@ -228,7 +253,7 @@
                     <option value="0">Non</option>
                     <option value="1">Oui</option>
                     </select>
-                  </div>
+                  </div>  
 
                   <div class="form-group">
                     <label for="lightFrequency">Light frequency</label>
@@ -245,9 +270,6 @@
           </div>
         </div>
 
-        <div class="container">
-
-        </div>
       <script src="camera.js?<?php echo $t ?>"></script>
     </body>
   </html>

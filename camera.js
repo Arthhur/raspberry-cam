@@ -71,6 +71,25 @@ $(document).ready(function() {
           });
     }) ;
 
+    $('#recordBtn').click(function() {
+        var temps = $("#time").val();
+        $.ajax({
+            url : 'data/execRecord',
+            type : 'POST',
+            data : { 
+                temps : temps
+            },
+            success : function(response, statut){ // success est toujours en place, bien sûr !
+                console.log(response);
+            },
+
+            error : function(resultat, statut, erreur){
+
+            }
+
+          });
+    }) ;
+
     $('#addUser').click(function() {
         $.ajax({
             url : 'data/addOneUser',
@@ -253,7 +272,6 @@ function getActiveUsers() {
         }
 
     });
-    console.log(userList) ;
     return userList ;
 }
 
@@ -277,7 +295,7 @@ function auth() {
     indexUser = users.indexOf(username) ;
 
     if(password == pass[indexUser]) {
-        window.location.href = '/indexcamera.php' ;
+        window.location.href = 'indexcamera.php' ;
     }
     else {
         $('.alert-danger').html('Mauvais identifiant') ;

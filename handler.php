@@ -66,12 +66,20 @@ class Handler
             case "setLightFrequency":
                 $result = $this->setLightFrequency() ;
                 break;
+            case "execRecord":
+                $result = $this->execRecord() ;
+                break;
             
             default:
                 $result = "Erreur: Méthode non trouvée";
                 break;
         }
         return $result;
+    }
+
+    function execRecord() {
+      $time = $_POST['temps'];
+      exec('cd /home/pi/ && ./ipcamvlc.sh '. $time);
     }
 
     function getSystemInfo() {
@@ -134,7 +142,7 @@ class Handler
       function getUserList() {
             $url = "http://admin:Cesi2017Cesi2017@192.168.0.20/userlist.cgi ";
             $contents = file_get_contents($url, true);
-            return $contents;
+            return $contents;*
       }
 
       function setVideoResolution() {
