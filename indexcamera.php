@@ -171,11 +171,11 @@
                   <div class="form-group">
                     <label for="compression">Taux de compression</label>
                     <select id="compression" name="compression" class="form-control form-control-lg">
-                    <option value="0">Très peu</option>
-                    <option value="1">Peu</option>
-                    <option value="2">Moyen</option>
-                    <option value="3">Fort</option>
-                    <option value="4">Très fort</option>
+                    <option value="0">Very low</option>
+                    <option value="1">Low</option>
+                    <option value="2">Medium</option>
+                    <option value="3">High</option>
+                    <option value="4">Very High</option>
                     </select>
                   </div>
 

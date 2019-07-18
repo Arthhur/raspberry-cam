@@ -1,9 +1,11 @@
 var list = [] ;
+var imgInfo = [] ;
 
 $(document).ready(function() {
     $('.alert-danger').hide() ;
 
     getUsersList() ;
+    getImgInfo() ;
 
     $('#authButton').click(function() {
         auth() ;
@@ -148,6 +150,50 @@ $(document).ready(function() {
 
 }) ;
 
+function getImgInfo() {
+    $.ajax({
+        url : 'data/getImgInfo',
+        type : 'POST',
+        success : function(response, statut){ // success est toujours en place, bien sûr !
+            var content = response.split('\r') ;
+            console.log(content) ;
+            content.forEach(function(element, index) {
+                switch(index) {
+                    case 0 : $('#resolution option[value="'+ element.split('=')[1] + '"]').attr("selected","selected"); ;
+                             break ;
+                    case 1 : $('#compression option[value="'+ element.split('=')[1] + '"]').attr("selected","selected"); ;
+                             break ;
+                    case 2 : $('#fps option[value="'+ element.split('=')[1] + '"]').attr("selected","selected"); ;
+                             break ;
+                    case 4 : $('#luminosite').val(element.split('=')[1]) ;
+                             $('#valLuminosite').html($('#luminosite').val()) ;
+                             break ;
+                    case 5 : $('#contraste').val(element.split('=')[1]) ;
+                             $('#valContrast').html($('#contraste').val()) ;
+                             break ;
+                    case 6 : $('#saturation').val(element.split('=')[1]) ;
+                             $('#valSaturation').html($('#saturation').val()) ;
+                             break ;
+                    case 7 : $('#lightFrequency option[value="'+ element.split('=')[1] + '"]').attr("selected","selected"); ;
+                             break ;
+                    case 9 : $('#noscintillement option[value="'+ element.split('=')[1] + '"]').attr("selected","selected"); ;
+                             console.log(element) ;
+                             break ;
+                    
+
+                    default : console.log('erreur') ;
+                              break ;
+                }
+        
+            }) ;
+        },
+
+        error : function(resultat, statut, erreur){
+
+        }
+
+    });
+}
 
 function getUsersList() {
     var userActive = getActiveUsers() ;

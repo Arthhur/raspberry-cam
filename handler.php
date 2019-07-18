@@ -119,7 +119,7 @@ class Handler
       }
     
       function getImgInfo() {
-            $url = "http://admin:Cesi2017Cesi2017@192.168.0.20/iimage.cgi";
+            $url = "http://admin:Cesi2017Cesi2017@192.168.0.20/image.cgi";
             $contents = file_get_contents($url, true);
             return $contents;
       }
@@ -206,11 +206,11 @@ class Handler
       function setAntiFlickerEnable() {
         if (isset($_POST['antiFlickerEnable'])) {
       
-            $antiFlickerEnable = $_POST['antiFlickerEnable '];
+            $antiFlickerEnable = $_POST['antiFlickerEnable'];
           
-            $url = 'http://admin:Cesi2017Cesi2017@192.168.0.20/image.cgi ?AntiFlickerEnable='.$antiFlickerEnable.'&ConfigReboot=No'  ;
+            $url = 'http://admin:Cesi2017Cesi2017@192.168.0.20/image.cgi?AntiFlickerEnable='.$antiFlickerEnable.'&ConfigReboot=No'  ;
             $contents = file_get_contents($url, true);
-            return "AntiFlickerEnable modifié";
+            return $contents;
         }
       }
 
@@ -219,7 +219,7 @@ class Handler
       
             $lightFrequency = $_POST['LightFrequency'];
           
-            $url = 'http://admin:Cesi2017Cesi2017@192.168.0.20/image.cgi ?lightFrequency ='.$lightFrequency.'&ConfigReboot=No'   ;
+            $url = 'http://admin:Cesi2017Cesi2017@192.168.0.20/image.cgi?lightFrequency ='.$lightFrequency.'&ConfigReboot=No'   ;
             $contents = file_get_contents($url, true);
             return "LightFrequency modifié";
         }
