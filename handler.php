@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 header('Access-Control-Allow-Origin: *');
 header('Content-Type: text/html; charset=utf-8');
 
@@ -69,12 +69,43 @@ class Handler
             case "execRecord":
                 $result = $this->execRecord() ;
                 break;
-            
+            case "getVideos":
+                $result = $this->getVideos() ;
+                break;
+            case "getImages":
+                $result = $this->getImages() ;
+                break;      
             default:
                 $result = "Erreur: Méthode non trouvée";
                 break;
         }
         return $result;
+    }
+
+    function getVideos() {
+        $content = [] ;
+        $dirname = 'videos/'; 
+        $dir = opendir($dirname); 
+        while($file = readdir($dir)) { 
+            if($file != '.' && $file != '..' && !is_dir($dirname.$file)) { 
+               array_push($content,$dirname.$file) ;
+            } 
+        } 
+        closedir($dir); 
+        return json_encode($content) ;
+    }
+
+    function getImages() {
+        $content = [] ;
+        $dirname = 'images/'; 
+        $dir = opendir($dirname); 
+        while($file = readdir($dir)) { 
+            if($file != '.' && $file != '..' && !is_dir($dirname.$file)) { 
+               array_push($content,$dirname.$file) ;
+            } 
+        } 
+        closedir($dir); 
+        return json_encode($content) ;
     }
 
     function execRecord() {
@@ -142,7 +173,7 @@ class Handler
       function getUserList() {
             $url = "http://admin:Cesi2017Cesi2017@192.168.0.20/userlist.cgi ";
             $contents = file_get_contents($url, true);
-            return $contents;*
+            return $contents;
       }
 
       function setVideoResolution() {

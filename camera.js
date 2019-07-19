@@ -13,7 +13,7 @@ $(document).ready(function() {
 
     $('#cameraInfos').click(function() {
         $.ajax({
-            url : 'data/getSystemInfo',
+            url : 'restController.php?type=getSystemInfo',
             type : 'POST',
             success : function(response, statut){ // success est toujours en place, bien sûr !
                 $('#requestResult').html(response);
@@ -28,7 +28,7 @@ $(document).ready(function() {
 
     $('#restart').click(function() {      
         $.ajax({
-            url : 'data/restartCamera',
+            url : 'restController.php?type=restartCamera',
             type : 'POST',
             success : function(response, statut){ // success est toujours en place, bien sûr !
                 $('#requestResult').html(response);
@@ -43,7 +43,7 @@ $(document).ready(function() {
 
     $('#userAccess').click(function() {
         $.ajax({
-            url : 'data/getUserAccess',
+            url : 'restController.php?type=getUserAccess',
             type : 'POST',
             success : function(response, statut){ // success est toujours en place, bien sûr !
                 $('#requestResult').html(response);
@@ -58,7 +58,7 @@ $(document).ready(function() {
 
     $('#imageInfos').click(function() {
         $.ajax({
-            url : 'data/getImgInfo',
+            url : 'restController.php?type=getImgInfo',
             type : 'POST',
             success : function(response, statut){ // success est toujours en place, bien sûr !
                 $('#requestResult').html(response);
@@ -74,7 +74,7 @@ $(document).ready(function() {
     $('#recordBtn').click(function() {
         var temps = $("#time").val();
         $.ajax({
-            url : 'data/execRecord',
+            url : 'restController.php?type=execRecord',
             type : 'POST',
             data : { 
                 temps : temps
@@ -92,7 +92,7 @@ $(document).ready(function() {
 
     $('#addUser').click(function() {
         $.ajax({
-            url : 'data/addOneUser',
+            url : 'restController.php?type=addOneUser',
             data: {
                 username: $('#username').val().trim(),
                 password: $('#password').val().trim(),
@@ -115,7 +115,7 @@ $(document).ready(function() {
 
     $('#deleteUser').click(function() {
         $.ajax({
-            url : 'data/deleteOneUser',
+            url : 'restController.php?type=deleteOneUser',
             data: {
                 username: $('#users option:selected').val(),
             },
@@ -130,6 +130,14 @@ $(document).ready(function() {
             }
 
           });
+    }) ;
+
+    $('#modal-video').click(function() {
+        getVideos() ;
+    }) ;
+
+    $('#modal-image').click(function() {
+        getImages() ;
     }) ;
 
     $('#resolution').change(function() {
@@ -169,13 +177,62 @@ $(document).ready(function() {
 
 }) ;
 
+function getVideos() {
+    var addContent = '' ;
+    var dir = '' ;
+    var file = '' ;
+    $.ajax({
+        url : 'restController.php?type=getVideos',
+        type : 'POST',
+        success : function(response, statut){ // success est toujours en place, bien sûr !
+            var data = JSON.parse(response) ;
+            data.forEach(function(element) {
+                dir = element ;
+                console.log(dir) ;
+                file = element.split('/')[1] ;
+                console.log(file) ;
+                addContent += '<a href="' + dir + '">'+ file + '</a>' + '<br /><br />' ; 
+            }) ;
+            $('#liste-video').html(addContent) ;
+        },
+
+        error : function(resultat, statut, erreur){
+
+        }
+    });
+}
+
+function getImages() {
+    var addContent = '' ;
+    var dir = '' ;
+    var file = '' ;
+    $.ajax({
+        url : 'restController.php?type=getImages',
+        type : 'POST',
+        success : function(response, statut){ // success est toujours en place, bien sûr !
+            var data = JSON.parse(response) ;
+            data.forEach(function(element) {
+                dir = element ;
+                console.log(dir) ;
+                file = element.split('/')[1] ;
+                console.log(file) ;
+                addContent += '<a href="' + dir + '">'+ file + '</a>' + '<br /><br />' ; 
+            }) ;
+            $('#liste-image').html(addContent) ;
+        },
+
+        error : function(resultat, statut, erreur){
+
+        }
+    });
+}
+
 function getImgInfo() {
     $.ajax({
-        url : 'data/getImgInfo',
+        url : 'restController.php?type=getImgInfo',
         type : 'POST',
         success : function(response, statut){ // success est toujours en place, bien sûr !
             var content = response.split('\r') ;
-            console.log(content) ;
             content.forEach(function(element, index) {
                 switch(index) {
                     case 0 : $('#resolution option[value="'+ element.split('=')[1] + '"]').attr("selected","selected"); ;
@@ -196,7 +253,6 @@ function getImgInfo() {
                     case 7 : $('#lightFrequency option[value="'+ element.split('=')[1] + '"]').attr("selected","selected"); ;
                              break ;
                     case 9 : $('#noscintillement option[value="'+ element.split('=')[1] + '"]').attr("selected","selected"); ;
-                             console.log(element) ;
                              break ;
                     
 
@@ -219,7 +275,7 @@ function getUsersList() {
     var userList = '' ;
     var deleteUserList = '' ;
     $.ajax({
-        url : 'data/getUserList',
+        url : 'restController.php?type=getUserList',
         type : 'POST',
         success : function(response, statut){ // success est toujours en place, bien sûr !
             var content = response.split('\r') ;
@@ -254,7 +310,7 @@ function getUsersList() {
 function getActiveUsers() {
     var userList = [] ;
     $.ajax({
-        url : 'data/getActiveUsers',
+        url : 'restController.php?type=getActiveUsers',
         type : 'POST',
         success : function(response, statut){ // success est toujours en place, bien sûr !
             var content = response.split('\r') ;
@@ -307,7 +363,7 @@ function auth() {
 function setVideoResolution() {
     var resolution = $('#resolution option:selected').val() ;
     $.ajax({
-        url : 'data/setVideoResolution',
+        url : 'restController.php?type=setVideoResolution',
         type : 'POST',
         data : {
             resolution : resolution
@@ -326,7 +382,7 @@ function setVideoResolution() {
 function setCompressionRate() {
     var compression = $('#compression option:selected').val() ;
     $.ajax({
-        url : 'data/setCompressionRate',
+        url : 'restController.php?type=setCompressionRate',
         type : 'POST',
         data : {
             compressionRate : compression
@@ -345,7 +401,7 @@ function setCompressionRate() {
 function setFramenRate() {
     var fps = $('#fps option:selected').val() ;
     $.ajax({
-        url : 'data/setFrameRate',
+        url : 'restController.php?type=setFrameRate',
         type : 'POST',
         data : {
             frameRate : fps
@@ -364,7 +420,7 @@ function setFramenRate() {
 function setBrightnessControl() {
     var luminosite = $('#luminosite').val() ;
     $.ajax({
-        url : 'data/setBrightnessControl',
+        url : 'restController.php?type=setBrightnessControl',
         type : 'POST',
         data : {
             brightnessControl : luminosite
@@ -383,7 +439,7 @@ function setBrightnessControl() {
 function setSaturationControl() {
     var saturation = $('#saturation').val() ;
     $.ajax({
-        url : 'data/setSaturationControl',
+        url : 'restController.php?type=setSaturationControl',
         type : 'POST',
         data : {
             saturationControl : saturation
@@ -402,7 +458,7 @@ function setSaturationControl() {
 function setContrastControl() {
     var contraste = $('#contraste').val() ;
     $.ajax({
-        url : 'data/setContrastControl',
+        url : 'restController.php?type=setContrastControl',
         type : 'POST',
         data : {
             contrastControl : contraste
@@ -421,7 +477,7 @@ function setContrastControl() {
 function setAntiFlickerEnable() {
     var scintillement = $('#noscintillement option:selected').val() ;
     $.ajax({
-        url : 'data/setAntiFlickerEnable',
+        url : 'restController.php?type=setAntiFlickerEnable',
         type : 'POST',
         data : {
             antiFlickerEnable : scintillement
@@ -440,7 +496,7 @@ function setAntiFlickerEnable() {
 function setLightFrequency() {
     var lightFrequency = $('#lightFrequency option:selected').val() ;
     $.ajax({
-        url : 'data/setLightFrequency',
+        url : 'restController.php?type=setLightFrequency',
         type : 'POST',
         data : {
             lightFrequency : lightFrequency
